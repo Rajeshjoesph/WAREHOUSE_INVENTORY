@@ -2,7 +2,7 @@ const prompt=require('prompt-sync')();
 const { log } = require('console');
 const fs=require('fs');
 writeData=require("./inventory");
-var inv= require('./inventory_file.js');
+var inventory_file= require('./inventory_file.js');
 
 
 console.log("1 - Inventory entiers:");
@@ -13,15 +13,7 @@ let process=parseFloat( prompt("Enter the Operation as Press " ));
 switch (process) {
     case 1:
         
-        const fun=new inv();
-        fun.inventory();
-            
-            if (input == 0) {
-                console.log("Inventory data is Added");
-                return false;
-            }else{
-                inventory()
-            }
+        const fun=new inventory_file();      
         break;
 
     case 2:
