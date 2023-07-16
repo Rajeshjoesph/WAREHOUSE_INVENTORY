@@ -173,6 +173,10 @@ const inventoryGrn=function(){
     
 }
 
-
+const grnRecord=()=>{
+    let grnFile=fs.readFileSync("inventory_grn.json");
+    let grnData=JSON.parse(grnFile);
+    console.table(grnData)
+}
 
 module.exports={inventoryRegister,displayInventory,inventoryFilter,inventoryGrn,grnRecord}

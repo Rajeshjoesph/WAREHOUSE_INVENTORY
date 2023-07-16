@@ -9,7 +9,7 @@ console.log("1 - Inventory entiers:");
 console.log("2 - Display inventory:");
 console.log("3 - Search by Category:");
 console.log("4 - GRN Entry:");
-
+console.log("5 - GRN Record:");
 
 
 
@@ -31,7 +31,8 @@ switch (process) {
     case 4:
         inventory_file.inventoryGrn();
         break;
-
+    case 5:
+        inventory_file.grnRecord();
     default:
         console.log("enter the values");
     break;
