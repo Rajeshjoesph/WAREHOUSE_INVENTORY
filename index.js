@@ -8,6 +8,10 @@ var inventory_file= require("./inventory_file");
 console.log("1 - Inventory entiers:");
 console.log("2 - Display inventory:");
 console.log("3 - Search by Category:");
+console.log("4 - GRN Entry:");
+
+
+
 
 let process=parseFloat( prompt("Enter the Operation as Press " ));
 switch (process) {
@@ -24,7 +28,9 @@ switch (process) {
     case 3:
         inventory_file.inventoryFilter();
         break;
-    
+    case 4:
+        inventory_file.inventoryGrn();
+        break;
 
     default:
         console.log("enter the values");

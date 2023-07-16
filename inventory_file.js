@@ -1,6 +1,8 @@
 const prompt=require('prompt-sync')();
-const { log } = require('console');
+const { log, Console } = require('console');
 const fs=require('fs');
+database=require("./inventory");
+const grn_inventory=require("./inventory_grn");
 
 
 // Inventory resgister function
@@ -8,12 +10,12 @@ const fs=require('fs');
 const inventoryRegister=function (){
 
     function inventoryEntry(){
-            let Pcode=prompt("Enter PCode:");
+        let Pcode=prompt("Enter PCode:");
         let Desc=prompt("Enter Descripation:");
         let Category=prompt("Enter Category:");
         let Mrp=prompt("Enter MRP:");
         let Upc=prompt("Enter Upc:");
-        let Location=prompt("Enter Stock Location:");
+        
 
 
         var inventory={
@@ -22,7 +24,7 @@ const inventoryRegister=function (){
             "Category":Category,
             "Mrp":Mrp,
             "Upc":Upc,
-            "Location":Location
+            
         };
 
         writeData.push(inventory);
@@ -110,4 +112,67 @@ const inventoryFilter=function(){
 }
 
 
-module.exports={inventoryRegister,displayInventory,inventoryFilter}
+const inventoryGrn=function(){
+    let EmpName=prompt("Enter the Employe Name: ");
+
+    if (EmpName != 0 ||null) {
+        let Pcode=parseInt(prompt("Type pcode: "));
+        let output=fs.readFileSync('inventory.json');
+        let data=JSON.parse(output);
+        let fetch=data.find(element=>element.Pcode===Pcode)
+    
+        if(fetch.Pcode==Pcode){
+            console.table(fetch);
+           
+            let Case=parseInt(prompt("Enter case :"));
+            let CaseRate=parseInt(prompt("Enter rate :"));
+            let PcsRate=parseInt(prompt("Enter Sale rate :"));
+
+            let Amount=CaseRate*Case;
+
+            let date=new Date();
+            let day=date.getDate();
+            let month=date.getMonth()+1;
+            let year =date.getFullYear();
+
+            let enteryDate=`${day}-${month}-${year}`;
+            
+
+            GrnDetail={
+                "Pcode":fetch.Pcode,
+                "Desc":fetch.Desc,
+                "Category":fetch.Category,
+                "Mrp":fetch.Mrp,
+                "Salerate":PcsRate,
+                "Upc":fetch.Upc,
+                "Case":Case,
+                "CaseRate":CaseRate,
+                "Amount":Amount,
+                "EmpName":EmpName,
+                "date":enteryDate
+                
+            }
+
+            grn_inventory.push(GrnDetail)
+            grnDb=JSON.stringify(grn_inventory);
+            fs.writeFileSync("inventory_grn.json",grnDb);    
+            console.log(GrnDetail);
+
+        }else{
+            console.log("Enter correct Pcode !");
+        }
+
+    }
+    else{
+        console.log("Employe Name Mantiory");
+    }
+
+   
+
+//    let grn=data.findIndex((element=>element.Pcode===Pcode));
+    
+}
+
+
+
+module.exports={inventoryRegister,displayInventory,inventoryFilter,inventoryGrn,grnRecord}
